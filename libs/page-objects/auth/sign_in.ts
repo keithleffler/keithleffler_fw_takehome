@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 
-export class SignIn {
+export class SignInPage {
   protected url = '/auth/sign_in';
   protected email: string;
   protected password: string;
@@ -23,24 +23,18 @@ export class SignIn {
   }
 
   private get continueButton(): Locator {
-    const locator =  this.page.getByRole('button', { name: 'Continue' });
-    return locator;
+    return this.page.getByRole('button', { name: 'Continue' });
   }
 
   private get emailBox(): Locator {
-    const locator = this.page.getByRole('textbox', { name: 'Email address' });
-    return locator;
+    return this.page.getByRole('textbox', { name: 'Email address' });
   }
 
   private get passwordBox(): Locator {
-    const locator =  this.page.getByRole('textbox', { name: 'password' });
-    return locator
+    return this.page.getByRole('textbox', { name: 'password' });
   }
 
   private get signInButton(): Locator {
-    const locator =  this.page.getByRole('button', { name: 'Log in' });
-    return locator
+    return this.page.getByRole('button', { name: 'Log in' });
   }
-
-
 }

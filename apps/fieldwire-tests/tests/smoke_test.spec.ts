@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { SignIn } from '@fieldwire/page-objects';
+import { ProjectsPage } from '@fieldwire/page-objects';
 
 test.describe.configure({ mode: 'parallel' });
 
@@ -11,16 +11,14 @@ test.describe('Responsive smoke test', () => {
   ];
 
   for (const { name, options } of viewports) {
-    test(`${name} viewport loads dashboard`, async ({ page }) => {
-      const signIn = new SignIn(page)
+    test(`${name} viewport loads projects page`, async ({ page }) => {
+
       await test.step(`Set viewport: ${name}`, async () => {
         await page.setViewportSize(options);
       });
-
-      await page.goto('/index/projects');
-
-      await expect(page.locator('header')).toBeVisible();
-      await expect(page.locator('nav')).toBeVisible(); // adjust if not applicable in all sizes
+      const projectsPage = new ProjectsPage(page);
+      await projectsPage.goto();
+      expect(projectsPage.newProjectButton).toBeVisible();
     });
   }
 });

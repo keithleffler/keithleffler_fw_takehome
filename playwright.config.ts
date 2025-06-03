@@ -17,14 +17,14 @@ export default defineConfig({
     video: 'retain-on-failure'
   },
   projects: [
-    { name: 'setup', testMatch: '**/setup.spec.ts' },
+    { name: 'setup', testMatch: /.*\.setup\.ts/  },
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        // storageState: 'playwright/.auth/user.json'
+        storageState: 'playwright/.auth/user.json'
       },
-      // dependencies:['setup']
+      dependencies:['setup']
     },
     // {
     //   name: 'Tablet (iPad)',
