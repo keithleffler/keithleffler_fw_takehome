@@ -14,20 +14,34 @@ export default defineConfig({
     baseURL: 'https://staging.fieldwire.com',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'retain-on-failure'
   },
   projects: [
+    { name: 'setup', testMatch: '**/setup.spec.ts' },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        // storageState: 'playwright/.auth/user.json'
+      },
+      // dependencies:['setup']
     },
-    {
-      name: 'Tablet (iPad)',
-      use: { ...devices['iPad Pro 11'] }
-    },
-    {
-      name: 'Mobile (iPhone)',
-      use: { ...devices['iPhone 12'] }
-    }
-  ],
+    // {
+    //   name: 'Tablet (iPad)',
+    //   use: {
+    //     ...devices['iPad Pro 11'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    //   dependencies:['setup']
+    // },
+    // {
+    //   name: 'Mobile (iPhone)',
+    //   use: {
+    //     ...devices['iPhone 12'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    //   dependencies:['setup']
+    //
+    // }
+  ]
 });

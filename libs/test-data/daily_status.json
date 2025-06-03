@@ -1,0 +1,8 @@
+{
+  "scenarios": [
+    {"name": "positive test","entries": {}},
+    {"name": "many trades","entries": {
+      "trades": []
+    }}
+  ]
+}

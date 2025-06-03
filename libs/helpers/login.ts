@@ -8,7 +8,7 @@ export async function login(page: Page) {
     throw new Error('Environment variables FIELDWIRE_EMAIL and FIELDWIRE_PASSWORD must be set');
   }
 
-  await page.goto('/login');
+  await page.goto('/');
   await page.fill('input[name="email"]', email);
   await page.fill('input[name="password"]', password);
   await page.click('button[type="submit"]');

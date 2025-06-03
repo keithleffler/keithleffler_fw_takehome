@@ -38,6 +38,19 @@ testem.log
 # Nx
 /.nx
 
+# Secrets
+.env/
+
 # System Files
 .DS_Store
 Thumbs.db
+
+# Playwright
+
+playwright/.auth
+playwright-report/
+test-results/
+
+# Other stuff
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
