@@ -1,0 +1,26 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@fieldwire/helpers": ["libs/helpers/index.ts"],
+      "@fieldwire/page-objects": ["libs/page-objects/index.ts"],
+      "@fieldwire/test-data": ["libs/test-data/index.ts"]
+    },
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2020",
+    "lib": ["es2020", "DOM"]
+  },
+  "exclude": ["node_modules", "tmp"]
+}

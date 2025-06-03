@@ -10,6 +10,7 @@ node_modules
 
 # IDEs and editors
 /.idea
+/.vscode
 .project
 .classpath
 .c9/
@@ -33,6 +34,9 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+
+# Nx
+/.nx
 
 # System Files
 .DS_Store
