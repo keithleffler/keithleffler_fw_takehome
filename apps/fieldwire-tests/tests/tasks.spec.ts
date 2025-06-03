@@ -1,14 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { login } from '@fieldwire/helpers';
-import { SignIn } from '@fieldwire/page-objects';
 
 test.describe('Tasks tests', () => {
-  test.beforeEach(async ({ page }) => {
-    const signInPage = new SignIn(page)
-  //   await signInPage.goto()
-    await signInPage.login()
-    
-  });
+
 
   test('should create a new task', async ({ page }) => {
     // await page.goto('/tasks');
