@@ -2,7 +2,7 @@ name: Playwright E2E Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "*" ]
   pull_request:
     branches: [ main ]
 
@@ -20,9 +20,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: |
-          npm install -g nx
-          npm install
+        run: npm install
 
       - name: Install Playwright dependencies
         run: npx playwright install --with-deps
@@ -31,4 +29,4 @@ jobs:
         run: echo "${{ secrets.FIELDWIRE_ENV }}" > .env
 
       - name: Run E2E tests
-        run: npx nx run fieldwire-tests:e2e
+        run: npm run e2e
