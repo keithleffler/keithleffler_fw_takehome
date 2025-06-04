@@ -11,7 +11,6 @@ test.describe('Responsive smoke test', () => {
     { name: 'Mobile', options: { width: 390, height: 844 } }   // iPhone 12
   ];
 
-
   for (const { name, options } of viewports) {
     test(`${name} viewport loads projects page`, async ({ page},testInfo ) => {
       if (testInfo.project.name !== 'chromium') {

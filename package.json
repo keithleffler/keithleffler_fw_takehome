@@ -7,17 +7,26 @@
     "lint:api": "eslint libs/api --ext .ts",
     "lint:helpers": "eslint libs/helpers --ext .ts",
     "lint:page-objects": "eslint libs/page-objects --ext .ts",
-    "lint:all": "npm run lint:test && npm run lint:api && npm run lint:helpers && npm run lint:page-objects"
+    "lint:all": "npm run lint:test && npm run lint:api && npm run lint:helpers && npm run lint:page-objects",
+    "test:libs:unit": "jest libs --passWithNoTests"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.15.29",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "dotenv": "^16.5.0",
     "eslint": "^8.0.0",
     "eslint-config-prettier": "^10.1.5",
+    "jest": "^29.7.0",
     "prettier": "^3.5.3",
+    "ts-jest": "^29.3.4",
     "typescript": "^4.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "jsonpath-plus": "^10.3.0",
+    "ts-node": "^10.9.2"
   }
 }

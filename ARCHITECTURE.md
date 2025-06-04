@@ -2,7 +2,9 @@
 
 ### Project File Structure
 
-The project follows a modular layout inspired by monorepo principles, even though Nx is not currently used. The structure separates test logic, reusable utilities, and test data for clarity and future scalability.
+The project follows a modular layout inspired by monorepo principles, even 
+though Nx is not currently used. The structure separates test logic, 
+reusable utilities, and test data for clarity and future scalability.
 
 ```
 .
@@ -25,6 +27,19 @@ The project follows a modular layout inspired by monorepo principles, even thoug
 ├── tsconfig.base.json              # Shared TypeScript config with path aliases
 └── ARCHITECTURE.md                 # Design decisions and structure notes
 ```
+
+### libs/api
+
+This folder contains reusable API client logic. It currently includes:
+
+- A base API class for shared HTTP behavior
+ - This includes methods to load the stored user credentials and extract the 
+   access token
+- A `ProjectsApi` class that performs a `GET` request to retrieve a user’s projects
+
+Other endpoint clients could be implemented in a similar structure.
+
+Unit tests for the `ProjectsApi` class would typically be written in **Jest**, using mocks to simulate API responses and validate behavior in isolation. These would not be run in Playwright, which is reserved for end-to-end tests. Due to time constraints, these unit tests are not included in this take-home, but the code is structured to support them.
 
 ### Environment Variables
 
