@@ -14,9 +14,9 @@ test.describe('Responsive smoke test', () => {
 
   for (const { name, options } of viewports) {
     test(`${name} viewport loads projects page`, async ({ page},testInfo ) => {
-      if (testInfo.project.name !== 'chromium') {
-        test.skip('View')
-      }
+      // if (testInfo.project.name !== 'chromium') {
+      //   test.skip('View')
+      // }
       await test.step(`Set viewport: ${name}`, async () => {
         await page.setViewportSize(options);
       });
