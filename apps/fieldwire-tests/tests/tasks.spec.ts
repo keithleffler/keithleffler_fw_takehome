@@ -4,7 +4,7 @@ test.describe('Tasks tests', () => {
 
 
   test('should create a new task',  ({ page }) => {
-    // await page.goto('/tasks');
+    // await page.goto('/tasks_sidebar.ts');
     // await page.click('button#create-task');
     // await page.fill('input[name="title"]', 'Sample Task');
     // await page.click('button#submit');

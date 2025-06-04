@@ -1,47 +1,70 @@
-# Fieldwire E2E Automation Challenge
+# Fieldwire Take-home Automation Challenge
 
-This project implements an end-to-end (E2E) test framework using [Playwright](https://playwright.dev/) with TypeScript. It's designed for Fieldwire's take-home automation challenge and demonstrates modular test design, CI integration, and environment-aware configuration.
+This project implements an automated E2E test framework using Playwright.  
+It tests basic workflows in the Fieldwire application, including login, task creation, form interaction, and layout validation across viewports.
 
----
+The project is organized as a TypeScript monorepo, with reusable code in libraries under `./libs` and tests under `./apps/fieldwire-tests`.
 
-## Project Structure
+## Setup
 
-Tests, page objects, helpers, and test data are organized by purpose:
-
-```
-.
-├── apps/fieldwire-tests/        # Main Playwright test suite
-├── libs/helpers/                # Reusable utilities (e.g., login)
-├── libs/page-objects/           # Page Object Model abstractions
-├── libs/test-data/              # Static JSON test data
-├── .github/workflows/ci.yml     # GitHub Actions workflow
-```
-
----
-
-## Running Tests Locally
-
-1. Install dependencies:
+Install dependencies:
 
 ```bash
 npm install
-npx playwright install --with-deps
 ```
 
-2. Create a `.env` file at the root with your Fieldwire credentials:
+Set the following variables in a `.env` file:
 
 ```
-FIELDWIRE_EMAIL=your-email@example.com
-FIELDWIRE_PASSWORD=your-password
+FIELDWIRE_EMAIL=test@example.com
+FIELDWIRE_PASSWORD=test-password
+FIELDWIRE_ENV_PROJECT=Takehome
 ```
 
-3. Run the test suite:
+> Note: this file is excluded from source control to protect secrets. In CI, its contents are injected using a GitHub secret named `FIELDWIRE_ENV` and written to disk before tests are run.
+
+## Run Tests
 
 ```bash
 npm run e2e
 ```
 
----
+## Run Unit Tests
+
+```bash
+npm run test:libs:unit
+```
+
+## Lint
+
+```bash
+npm run lint:all
+```
+
+## Project Layout
+
+```
+.
+├── apps/
+│   └── fieldwire-tests/
+│       ├── tests/
+│       └── tsconfig.json
+├── bruno/                      # Bruno API collection for testing REST endpoints
+├── libs/
+│   ├── api/
+│   ├── helpers/
+│   ├── page-objects/
+│   └── test-data/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── .env                        # Environment credentials (excluded from git)
+├── .eslintrc.js
+├── playwright.config.ts
+├── package.json
+├── tsconfig.base.json
+└── ARCHITECTURE.md
+```
 
 ## Available Scripts
 
@@ -55,38 +78,8 @@ The following npm scripts are defined to support testing and linting workflows:
 | `npm run lint:api`          | Lints reusable API client code under `libs/api/`              |
 | `npm run lint:helpers`      | Lints utility functions under `libs/helpers/`                 |
 | `npm run lint:page-objects` | Lints Page Object Model classes in `libs/page-objects/`    |
-| `npm run lint:all`          | Runs all lint scripts in sequence                             |
+| `npm run lint:all`   
 
-These scripts help enforce code quality and consistency across the different parts of the project.
+## Design Notes
 
-## CI Integration
-
-GitHub Actions is used to run tests on all branches and pull requests. See `.
-github/workflows/ci.yml` for details.  GitHub Actions tests are not fully 
- functional because of problems storing login credentials.  See ARCHITECTURE.
-md for details.
-
----
-
-## Bruno
-
-The /bruno folder contains a small [Bruno](https://www.usebruno.com/) API 
-collection used to test the `/projects` endpoint against the Fieldwire API. It serves as a lightweight, scriptable way to manually verify API behavior outside of the Playwright test framework.
-
-The collection includes:
-- A `GET /projects` request
-- Environment support for injecting tokens
-- Easy inspection of raw API responses
-
-This setup is useful for quick manual testing, debugging, or verifying 
-assumptions during test development.  A valid token can be obtained by going 
-to the https://staging.fieldwire.com website, and then copying the token 
-from a successful API call in Chrome developer tools. 
-
-## Notes
-
-- Viewport-specific smoke tests (apps/fieldwire-tests/tests/smoke_test.spec.
-  ts) are skipped unless the browser context is 
-  Chromium.
-- Static JSON is used for test data to simplify setup. In production, this could be replaced with dynamic or API-fetched data.
-- The test framework avoids full monorepo overhead but uses a modular layout for future scalability.
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for additional details, including CI limitations, design tradeoffs, and commentary on future improvements.
