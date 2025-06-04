@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Tasks tests', () => {
 
 
-  test('should create a new task', async ({ page }) => {
+  test('should create a new task',  ({ page }) => {
     // await page.goto('/tasks');
     // await page.click('button#create-task');
     // await page.fill('input[name="title"]', 'Sample Task');
@@ -14,13 +14,13 @@ test.describe('Tasks tests', () => {
     );
   });
 
-  test('should reject negative hour values', async ({ page }) => {
+  test('should reject negative hour values',  ({ page }) => {
     expect.soft(true).toBe(true);
   });
-  test('should reject very large hour values', async ({ page }) => {
+  test('should reject very large hour values',  ({ page }) => {
     expect.soft(true).toBe(true);
   });
-  test('should reject very small hours values', async ({ page }) => {
+  test('should reject very small hours values',  ({ page }) => {
     expect.soft(true).toBe(true);
   });
 });

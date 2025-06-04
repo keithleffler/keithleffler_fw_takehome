@@ -2,15 +2,22 @@
   "name": "keithleffler-fw-takehome",
   "version": "0.0.1",
   "scripts": {
-    "lint": "nx run-many --target=lint --all"
+    "e2e": "node -r dotenv/config node_modules/.bin/playwright test apps/fieldwire-tests/tests",
+    "lint:test": "eslint apps/fieldwire-tests --ext .ts",
+    "lint:api": "eslint libs/api --ext .ts",
+    "lint:helpers": "eslint libs/helpers --ext .ts",
+    "lint:page-objects": "eslint libs/page-objects --ext .ts",
+    "lint:all": "npm run lint:test && npm run lint:api && npm run lint:helpers && npm run lint:page-objects"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "@nrwl/workspace": "^17.0.0",
     "@types/node": "^22.15.29",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "dotenv": "^16.5.0",
     "eslint": "^8.0.0",
+    "eslint-config-prettier": "^10.1.5",
+    "prettier": "^3.5.3",
     "typescript": "^4.0.0"
   }
 }

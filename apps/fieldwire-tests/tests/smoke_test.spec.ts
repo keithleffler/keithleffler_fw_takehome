@@ -22,7 +22,7 @@ test.describe('Responsive smoke test', () => {
       });
       const projectsPage = new ProjectsPage(page);
       await projectsPage.goto();
-      expect(projectsPage.newProjectButton).toBeVisible();
+      await expect(projectsPage.newProjectButton).toBeVisible();
     });
   }
 });
