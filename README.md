@@ -33,6 +33,8 @@ npx playwright install --with-deps
 ```
 FIELDWIRE_EMAIL=your-email@example.com
 FIELDWIRE_PASSWORD=your-password
+FIREWIRE_TEST_PROJECT="Takehome"
+
 ```
 
 3. Run the test suite:
@@ -85,6 +87,13 @@ from a successful API call in Chrome developer tools.
 
 ## Notes
 
+- The tests use a pre-configured project 'Takehome'.  An API call is used to 
+  retrieve the project id value.  In a production test environment, a test 
+  suite should either create and delete new projects for each test run to 
+  limit the number of projects in the test environment.  This would involve 
+  a lot of setup or database seeding.  Because of time constraints, I 
+  decided to use a pre-configured project instead of writing the Playwright 
+  code to create a project via the UI.
 - Viewport-specific smoke tests (apps/fieldwire-tests/tests/smoke_test.spec.
   ts) are skipped unless the browser context is 
   Chromium.
