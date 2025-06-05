@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { SignInPage } from '@fieldwire/page-objects';
 
 test.describe('Forms tests', () => {
 

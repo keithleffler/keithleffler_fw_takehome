@@ -20,6 +20,7 @@ export class SignInPage {
     await this.continueButton.click();
     await this.passwordBox.fill(this.password);
     await this.signInButton.click();
+    await this.page.waitForURL('**/index/projects')
   }
 
   private get continueButton(): Locator {
