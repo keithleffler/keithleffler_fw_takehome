@@ -2,16 +2,14 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Tasks tests', () => {
 
+  const projectId = ""
+  test.beforeAll( async ({ page }) => {
+
+    await page.goto(`/projects/${projectId}/tasks`);
+  })
 
   test('should create a new task',  ({ page }) => {
-    // await page.goto('/tasks_sidebar.ts');
-    // await page.click('button#create-task');
-    // await page.fill('input[name="title"]', 'Sample Task');
-    // await page.click('button#submit');
-    // await expect(page.locator('text=Sample Task')).toBeVisible();
-    expect(true).toBe(
-      true
-    );
+
   });
 
   test('should reject negative hour values',  ({ page }) => {
