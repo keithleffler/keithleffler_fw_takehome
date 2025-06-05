@@ -2,7 +2,7 @@ import {v4 as uuidv4} from 'uuid';
 import { test, expect } from '@playwright/test';
 import { ProjectApi, TasksApi } from '../../../libs/api';
 import { TaskPage } from '../../../libs/page-objects/projects/task_page';
-import { findUniqueElements } from '@fieldwire/helpers';
+import { findUniqueElements, shortUUID } from '@fieldwire/helpers';
 
 
 test.describe('Tasks tests', () => {
@@ -49,7 +49,7 @@ test.describe('Tasks tests', () => {
     const taskPage = new TaskPage(page, baseUrl,projectId)
 
     // Create a new project task, with a randomly generated name
-    const id = uuidv4().substring(0,10)
+    const id = shortUUID()
     const taskName = `task ${id}`
     await taskPage.createNewTask(taskName)
 
