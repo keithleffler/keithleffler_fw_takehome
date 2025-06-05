@@ -1,12 +1,15 @@
 import { Api } from './api_v3';
 import axios from 'axios';
 import { JSONPath } from 'jsonpath-plus';
-export class ProjectApi extends Api {
 
-  getProjects = async ():Promise<any> => {
+export class TasksApi extends Api {
+  constructor (baseUrl: string, private projectId:string) {
+    super(baseUrl);
+  }
+  getTasks = async ():Promise<any> => {
     const token = this.accessToken;
     try {
-      const url = `${this.baseUrl}/${this.apiRoot}/projects`;
+      const url = `${this.baseUrl}/${this.apiRoot}/projects/${this.projectId}/tasks`;
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -16,16 +19,5 @@ export class ProjectApi extends Api {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }
-
-  getByName = async (name: string):Promise<any> => {
-    const projects = await this.getProjects();
-    const result = JSONPath({
-      path: '$[?(@.code=="Takehome")].id',
-      json: projects
-
-    });
-
-    return result[0];
   }
 }

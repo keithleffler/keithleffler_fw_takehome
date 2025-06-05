@@ -6,7 +6,7 @@ export class Api {
   protected apiRoot = '/api/v3';
   protected localUserData = 'playwright/.auth/user.json';
   protected _accessToken: string = '';
-
+  constructor(protected baseUrl: string ) {}
   loadJson<T = any>(relativePath: string): T {
     const fullPath = path.resolve(process.cwd(), relativePath);
     const fileContent = fs.readFileSync(fullPath, 'utf-8');
