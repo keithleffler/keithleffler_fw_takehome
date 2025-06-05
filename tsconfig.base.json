@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@fieldwire/api": ["libs/api/index.ts"],
       "@fieldwire/helpers": ["libs/helpers/index.ts"],
       "@fieldwire/page-objects": ["libs/page-objects/index.ts"],
       "@fieldwire/test-data": ["libs/test-data/index.ts"]

@@ -6,6 +6,21 @@ export class TasksApi extends Api {
   constructor (baseUrl: string, private projectId:string) {
     super(baseUrl);
   }
+
+  deleteTask = async (taskId:string) => {
+    const token = this.accessToken;
+    try {
+      const url = `${this.baseUrl}/${this.apiRoot}/projects/${this.projectId}/tasks/${taskId}`;
+      await axios.delete(url, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    } catch (error) {
+      console.error(`Error deleting task:${taskId}`, error);
+    }
+  }
+
   getTasks = async ():Promise<any> => {
     const token = this.accessToken;
     try {
@@ -20,4 +35,5 @@ export class TasksApi extends Api {
       console.error('Error fetching data:', error);
     }
   }
+
 }

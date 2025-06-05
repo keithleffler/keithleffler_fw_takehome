@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { SignInPage } from '@fieldwire/page-objects';
 
 test.describe('Forms tests', () => {
 
@@ -12,8 +11,6 @@ test.describe('Forms tests', () => {
     // await expect(page.locator('text=Test Form')).toBeVisible();
   });
 
-  test('should complete a form with many entries',  ({ page }) => {
-    expect(true).toBe(true);
-  });
+
 
 });
