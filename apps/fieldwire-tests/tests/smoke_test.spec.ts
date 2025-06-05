@@ -5,10 +5,7 @@ test.describe.configure({ mode: 'parallel' });
 
 
 test.describe('Responsive smoke test', () => {
-  test.beforeEach(async ({ page }) => {
-    const signIn = new SignInPage(page);
-    await signIn.login();
-  })
+
   const viewports = [
     { name: 'Desktop', options: { width: 1280, height: 800 } },
     { name: 'Tablet', options: { width: 834, height: 1112 } }, // iPad Pro
