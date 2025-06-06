@@ -1,6 +1,12 @@
 # Fieldwire Take-home Automation Challenge
 
-I focused this project more on setting up a solid foundation than on writing a lot of tests. The goal was to build something that could grow into a much larger automation suite—so I spent most of my time designing the structure, wiring things together, and making sure the pieces are easy to expand later. There are a few tests in place, but the emphasis here is really on the framework itself.
+I focused this project more on setting up a solid foundation than on writing 
+a lot of tests. The goal was to build something that could grow into a much 
+larger automation suite. I spent more of my time designing the structure, 
+wiring things together, and making sure the pieces are easy to expand later. 
+There are a few tests in place, but the emphasis here is really on the 
+framework itself. This is also my first introduction to Playwright, and I'm 
+very impressed with its capabilities.
 
 This project implements an automated E2E test framework using Playwright.It tests basic workflows in the Fieldwire application, including login, task creation, form interaction, and layout validation across viewports.
 
