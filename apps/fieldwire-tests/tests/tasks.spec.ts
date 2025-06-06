@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 import { ProjectApi, TasksApi } from '../../../libs/api';
 import { TaskPage } from '../../../libs/page-objects/projects/task_page';
 import { findUniqueElements, shortUUID } from '@fieldwire/helpers';
+import { TaskEditor } from '@fieldwire/page-objects';
 
 
 test.describe('Tasks tests', () => {
@@ -65,19 +66,37 @@ test.describe('Tasks tests', () => {
 
   });
 
-  /*
-    Exploratory testing shows that the task editor will accept negative values as
-    well as very large and very small numbers. I'm not sure if this is by design.
-    I was planning to write the tests for these, knowing that they would fail.  The
-    point of the expect.soft is to show one way of dealing with known issues until they're fixed.
-   */
-  test('should reject negative manpower values',  ({ page }) => {
+
+  test('should reject negative manpower values', async ({ page }) => {
+    // Get a list of existing tasks
+    const taskPage = new TaskPage(page, baseUrl,projectId)
+    // Create a new project task, with a randomly generated name
+    const id = shortUUID()
+    const taskName = `task ${id}`
+    await taskPage.createNewTask(taskName)
+
+    const negativeValue = '-1000';
+    const tasksApi = new TasksApi(baseUrl, projectId);
+    const tasks = await tasksApi.getTasks();
+
+    // Create a TaskEditor page object and open the task editor for the first task
+    const taskEditor = new TaskEditor(page,baseUrl,projectId)
+    await taskEditor.goto((tasks[tasks.length-1] as any).id)
+
+    // click on the manpower attribute, set the value, and submit
+    await taskEditor.locators.manpower().click()
+    await taskEditor.locators.textBox().click()
+    await taskEditor.locators.textBox().fill(negativeValue)
+    await taskEditor.locators.submitButton().click()
+
+    const displayText = await taskEditor.locators.manpower().locator('span').innerText()
+    // get the element
+     expect.soft(true,'Needs clarification on expected behavior').toBe(false);
+  });
+  test('should reject very large manpower values', ({ page }) => {
     expect.soft(true,'Needs clarification on expected behavior').toBe(false);
   });
-  test('should reject very large manpower values',  ({ page }) => {
-    expect.soft(true,'Needs clarification on expected behavior').toBe(false);
-  });
-  test('should reject very small manpower values',  ({ page }) => {
+  test('should reject very small manpower values', ({ page }) => {
 
     expect.soft(true,'Needs clarification on expected behavior').toBe(false);
   });

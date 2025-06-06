@@ -21,7 +21,7 @@ export class TasksApi extends Api {
     }
   }
 
-  getTasks = async ():Promise<any> => {
+  getTasks = async ():Promise<unknown[]> => {
     const token = this.accessToken;
     try {
       const url = `${this.baseUrl}/${this.apiRoot}/projects/${this.projectId}/tasks`;
@@ -30,9 +30,10 @@ export class TasksApi extends Api {
           Authorization: `Bearer ${token}`
         }
       });
-      return response.data;
+      return response.data as unknown[];
     } catch (error) {
       console.error('Error fetching data:', error);
+      throw error
     }
   }
 

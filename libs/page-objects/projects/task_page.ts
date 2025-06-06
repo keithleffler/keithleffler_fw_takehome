@@ -14,7 +14,6 @@ export class TaskPage {
     const taskEditor = new TaskEditor(this.page,this.baseUrl,this.projectId);
     await taskEditor.updateTitle(this.newTaskName,name)
     await taskEditor.closeEditorLocator.click();
-
   }
 
   goto = async () => {

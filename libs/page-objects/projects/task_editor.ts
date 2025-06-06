@@ -5,6 +5,9 @@ export class TaskEditor {
     this.url = `${baseUrl}/projects/${projectId}/tasks`
   }
 
+  goto = async (taskId:string  ) => {
+    await this.page.goto(`${this.url}/${taskId}`);
+  }
   // method to update a task title.
   updateTitle = async(currentTitle:string, newTitle:string) => {
     await this.page.getByText(`${currentTitle} edit`).click()
@@ -24,9 +27,11 @@ export class TaskEditor {
     location:() => this.page.getByRole('heading',{"name":'Location'}),
     start_date:() => this.page.getByRole('heading',{"name":'Start date'}),
     end_date:() => this.page.getByRole('heading',{"name":'End date'}),
-    manpower:() => this.page.getByRole('heading',{"name":'Manpower'}),
+    manpower:(text?:string) => this.page.getByRole('heading',{"name":'Manpower'}),
     cost:()=> this.page.getByRole('heading',{"name":'Cost'}),
     tags:() => this.page.getByRole('heading',{"name":'Tags'}),
     watchers:() => this.page.getByRole('heading',{"name":'Watchers'}),
+    submitButton:() => this.page.getByRole('button', { name: 'Submit' }),
+    textBox:() => this.page.getByRole('textbox', { name: '-' })
   }
 }
