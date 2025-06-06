@@ -1,8 +1,7 @@
-import {v4 as uuidv4} from 'uuid';
 import { test, expect } from '@playwright/test';
-import { ProjectApi, TasksApi } from '../../../libs/api';
-import { TaskPage } from '../../../libs/page-objects/projects/task_page';
-import { findUniqueElements, shortUUID } from '@fieldwire/helpers';
+import { ProjectApi, TasksApi } from '@fieldwire/api';
+import { TaskPage } from '@fieldwire/page-objects';
+import { shortUUID } from '@fieldwire/helpers';
 import { TaskEditor } from '@fieldwire/page-objects';
 
 
@@ -21,7 +20,7 @@ test.describe('Tasks tests', () => {
 
     // Create a new projectAPI, use it to get the projectId
     const projectApi = new ProjectApi(baseUrl);  //TODO: error handling if baseURL is not set
-    projectId = await projectApi.getByName(projectName);
+    projectId = await projectApi.getByName(projectName) as string;
 
     // Create a new TaskPage page object.
     const taskPage = new TaskPage(page,baseUrl, projectId)
@@ -29,7 +28,7 @@ test.describe('Tasks tests', () => {
     // goto the tasks page for the project
     await taskPage.goto();
   })
-  test.afterEach( async ({ page }) => {
+  test.afterEach( async () => {
     // Create a new Tasks api instance
     const tasksApi = new TasksApi(baseUrl, projectId);
 
@@ -40,7 +39,7 @@ test.describe('Tasks tests', () => {
     await Promise.all(requests)
 
   })
-  test('should create a new task',  async ({ page },testInfo) => {
+  test('should create a new task',  async ({ page }) => {
 
     // Create a new TasksApi instance, and get the existing tasks in the project
     const tasksApi = new TasksApi(baseUrl, projectId);
@@ -77,11 +76,11 @@ test.describe('Tasks tests', () => {
 
     const negativeValue = '-1000';
     const tasksApi = new TasksApi(baseUrl, projectId);
-    const tasks = await tasksApi.getTasks();
+    const tasks = await tasksApi.getTasks() as {id:string}[];
 
     // Create a TaskEditor page object and open the task editor for the first task
     const taskEditor = new TaskEditor(page,baseUrl,projectId)
-    await taskEditor.goto((tasks[tasks.length-1] as any).id)
+    await taskEditor.goto(tasks[tasks.length-1].id)
 
     // click on the manpower attribute, set the value, and submit
     await taskEditor.locators.manpower().click()

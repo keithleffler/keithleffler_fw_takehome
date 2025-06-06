@@ -2,84 +2,76 @@
 
 ## Project File Structure
 
-The project follows a modular layout inspired by monorepo principles, even though Nx is not currently used. The structure separates test logic, reusable utilities, and test data for clarity and future scalability.
+The project follows a modular folder layout inspired by monorepo principles. Test logic, reusable utilities, and test data are organized for clarity and future scalability.
 
 ```
 .
 ├── apps/
 │   └── fieldwire-tests/
 │       ├── tests/                  # Feature-specific test files (e.g., forms, tasks)
+│       ├── setup/                  # Authentication and global setup hooks
 │       └── tsconfig.json
+├── bruno/                          # Bruno API collection for exploring and verifying REST endpoints
 ├── libs/
-│   ├── api/                        # Wrappers for API endpoints
-│   ├── helpers/                    # Reusable utilities like login()
+│   ├── api/                        # Wrappers for backend API endpoints
+│   ├── helpers/                    # Shared utilities (e.g., environment, config)
 │   ├── page-objects/               # Page Object Model abstractions
 │   └── test-data/                  # Static JSON fixtures for test scenarios
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                  # GitHub Actions workflow for CI
 ├── .env                            # Local-only credentials (excluded from git)
-├── .eslintrc.js                    # Root ESLint config
 ├── playwright.config.ts            # Playwright test runner config
 ├── package.json
-├── tsconfig.base.json              # Shared TypeScript config with path aliases
-└── ARCHITECTURE.md                 # Design decisions and structure notes
+└── tsconfig.json                   # Shared TypeScript config
 ```
 
-## Environment Variables
+## Authentication and Session Handling
 
-This project uses a `.env` file to store login credentials and other environment-specific values. The file is loaded automatically at runtime via `dotenv`, and is excluded from source control (`.gitignore`) to avoid exposing secrets.
+Playwright's global setup capability is used to cache authentication for the test suite. The `auth.setup.ts` file performs login once and stores the session state (e.g., local storage, cookies) in a file accessible to all tests. This approach provides:
 
-In CI, these values are injected using a GitHub Actions secret (`FIELDWIRE_ENV`) which contains the same `.env` content. This ensures test credentials are available in both local and CI environments without hardcoding sensitive data.
+- Faster test execution by avoiding redundant logins
+- Token persistence across tests and runs
+- Separation of authentication logic from feature tests
 
-## libs/api
-
-This folder contains reusable API client logic. It currently includes:
-
-- A base API class for shared HTTP behavior
-- This includes methods to load the stored user credentials and extract the access token
-- A `ProjectsApi` class that performs a `GET` request to retrieve a user’s projects
-
-This pattern could be extended to support additional endpoints in a modular way.
-
-Unit tests for the `ProjectsApi` class would typically be written in **Jest**, using mocks to simulate API responses and validate behavior in isolation. Due to time constraints, these unit tests are not included in this take-home, but the code is structured to support them.
+This file is referenced in `playwright.config.ts` via the `globalSetup` option, and the `storageState` path is shared through configuration.
 
 ## Bruno Collection
 
-The `bruno/` folder contains a small [Bruno](https://www.usebruno.com/) API collection used for manual testing of the Fieldwire `/projects` endpoint. This collection allows quick validation of API responses outside of the Playwright framework.
+The `bruno/` folder contains a structured collection of API requests used to explore and validate backend behavior. Bruno is used during test development to:
 
-It includes:
+- Understand request/response shapes
+- Prototype test data inputs
+- Validate endpoint behavior independently of UI
 
-- A `GET /projects` request
-- Environment variable support for injecting a bearer token
-- A convenient way to inspect raw API responses during development
+While Bruno is not required to run the Playwright tests, it is useful for test data design and regression triage.
 
-While not part of the automated test flow, this tool supports quick iteration and helps confirm assumptions about backend behavior before writing formal tests.
+## CI Integration
 
-## Test Data Design
+The `.github/workflows/ci.yml` file runs all end-to-end tests on push and pull request events. It includes:
 
-I used static JSON files in `libs/test-data/` to keep things simple and reviewable. For a take-home project, this makes it easy to see exactly what data is being used without extra setup.
+- Environment variable injection via GitHub Secrets
+- Dependency installation and linting
+- Execution of Playwright tests in headless Chromium
+- Upload of test artifacts (e.g., failure screenshots)
 
-In a real-world setup, I'd consider dynamic or API-fetched data to better reflect live workflows, handle permissions, or prep environment-specific scenarios. The current structure leaves room to plug in that kind of logic later if needed.
+Note: Full CI execution is not currently functional due to unresolved issues with storing and accessing the authorization state required for login. This would typically involve securely caching session tokens or login state between jobs, but limitations with GitHub Actions secrets and storage paths prevented a working implementation. Further refinement is needed to support complete CI automation.
+## Environment Variables
 
-## GitHub Actions Integration
+This project uses a `.env` file to store login credentials and project-specific configuration. It is loaded automatically using `dotenv`, and is excluded from version control.
 
-This project includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that runs Playwright E2E tests on every push and pull request. It installs dependencies, sets up Playwright, loads `.env` credentials from GitHub secrets, and executes tests using `npm run e2e`.
+In CI, secrets are injected from GitHub Actions and written to `.env` before tests are run.
 
-To save time, the framework reuses a saved Playwright login session (`playwright/.auth/user.json`) locally. This doesn't work in CI due to the clean Github environment.
+## Design Principles
 
-Given the time limit, I prioritized fast local runs and deferred CI login setup. A future improvement would be to use a `globalSetup` script to log in and persist session state before tests.
+- **Modularity**: Tests are kept clean by isolating helpers, API wrappers, and page objects.
+- **Reusability**: Shared libraries in `libs/` reduce duplication across feature tests.
+- **Maintainability**: The structure supports growth across features with minimal coupling.
+- **Transparency**: Bruno collections document API behavior and support development diagnostics.
 
-## Tooling Summary
 
-- Test Runner: Playwright
-- Unit Tests (planned): Jest
-- CI: GitHub Actions
-- Env Management: dotenv
-- Linting: ESLint + Prettier
+### Notes:
 
-## Note on Nx Monorepo
-
-I considered using Nx, but with just one test app and a few small libraries, it added more complexity than needed for this exercise.
-
-If this were part of a larger monorepo with shared code or growing test coverage, Nx would help manage dependencies, speed up CI, and keep things organized. The current layout keeps things simple but could scale into an Nx setup if needed.
+There are remaining lint errors from overusing the 'any' type. The code could 
+benefit from definitions of the task and project record format returned from 
+the API, as well as a basic structure of the authentication data.

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { DailyStatusForm, FormsPage } from '@fieldwire/page-objects';
-import { shortUUID, UrlData, urlData } from '@fieldwire/helpers';
+import { UrlData, urlData } from '@fieldwire/helpers';
 import {format} from 'date-fns';
 
 test.describe('Forms tests', () => {
@@ -13,7 +13,7 @@ test.describe('Forms tests', () => {
 
   test('should submit a new daily report form', async ({
     page,
-  }, testInfo) => {
+  }) => {
     // create FormsPage page object instance
     const formName = 'Daily Report'
 
@@ -44,5 +44,6 @@ test.describe('Forms tests', () => {
 
     // expect to be back on projects/<projectId>/forms/templates/<templateId> page
     const templatesPageUrl = /projects\/.*\/forms\/templates\/.*/
+    await expect(page).toHaveURL(templatesPageUrl)
   });
 });

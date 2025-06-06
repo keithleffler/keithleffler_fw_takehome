@@ -1,9 +1,10 @@
 # Fieldwire Take-home Automation Challenge
 
-This project implements an automated E2E test framework using Playwright.  
-It tests basic workflows in the Fieldwire application, including login, task creation, form interaction, and layout validation across viewports.
+I focused this project more on setting up a solid foundation than on writing a lot of tests. The goal was to build something that could grow into a much larger automation suite—so I spent most of my time designing the structure, wiring things together, and making sure the pieces are easy to expand later. There are a few tests in place, but the emphasis here is really on the framework itself.
 
-The project is organized as a TypeScript monorepo, with reusable code in libraries under `./libs` and tests under `./apps/fieldwire-tests`.
+This project implements an automated E2E test framework using Playwright.It tests basic workflows in the Fieldwire application, including login, task creation, form interaction, and layout validation across viewports.
+
+The project is organized as a TypeScript modular structure, with reusable code in libraries under ./libs and tests under ./apps/fieldwire-tests.
 
 ## Setup
 
@@ -16,9 +17,9 @@ npm install
 Set the following variables in a `.env` file:
 
 ```
-FIELDWIRE_EMAIL=test@example.com
-FIELDWIRE_PASSWORD=test-password
-FIELDWIRE_ENV_PROJECT=Takehome
+FIELDWIRE_EMAIL=test@example.com (replace with actual)
+FIELDWIRE_PASSWORD=test-password (replace with actual)
+FIELDWIRE_ENV_PROJECT=Takehome   (use this for running tests).
 ```
 
 > Note: this file is excluded from source control to protect secrets. In CI, its contents are injected using a GitHub secret named `FIELDWIRE_ENV` and written to disk before tests are run.
@@ -31,18 +32,11 @@ npm run e2e
 
 ## Run Unit Tests
 
-<<<<<<< HEAD
+
 ```bash
 npm run test:libs:unit
-=======
 ```
-FIELDWIRE_EMAIL=your-email@example.com
-FIELDWIRE_PASSWORD=your-password
-FIREWIRE_TEST_PROJECT="Takehome"
-
->>>>>>> 66a6b5facc860cc81c4ef5ae613ebbd4fc22e985
-```
-
+The libraries under ./libs are designed to be independent of the test runner and UI framework logic. This separation makes them suitable for unit testing with mocking and dependency injection. While the current implementation includes only placeholder unit tests due to time constraints, the structure supports isolated testing of API helpers, utilities, and page logic in future iterations.
 ## Lint
 
 ```bash

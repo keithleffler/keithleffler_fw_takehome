@@ -5,8 +5,11 @@ import { JSONPath } from 'jsonpath-plus';
 export class Api {
   protected apiRoot = '/api/v3';
   protected localUserData = 'playwright/.auth/user.json';
-  protected _accessToken: string = '';
+  protected _accessToken = '';
   constructor(protected baseUrl: string ) {}
+
+  // TODO: move to a shared library.
+  // TODO: get a schema defintion for the user.json file, to avoid the errors with assigning to any.
   loadJson<T = any>(relativePath: string): T {
     const fullPath = path.resolve(process.cwd(), relativePath);
     const fileContent = fs.readFileSync(fullPath, 'utf-8');

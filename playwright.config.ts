@@ -26,22 +26,13 @@ export default defineConfig({
       },
       dependencies:['setup']
     },
-    // {
-    //   name: 'Tablet (iPad)',
-    //   use: {
-    //     ...devices['iPad Pro 11'],
-    //     storageState: 'playwright/.auth/user.json',
-    //   },
-    //   dependencies:['setup']
-    // },
-    // {
-    //   name: 'Mobile (iPhone)',
-    //   use: {
-    //     ...devices['iPhone 12'],
-    //     storageState: 'playwright/.auth/user.json',
-    //   },
-    //   dependencies:['setup']
-    //
-    // }
+    {
+      name: 'Tablet (iPad)',
+      use: {
+        ...devices['iPad Pro 11'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies:['setup']
+    }
   ]
 });

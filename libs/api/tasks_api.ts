@@ -1,6 +1,5 @@
 import { Api } from './api_v3';
 import axios from 'axios';
-import { JSONPath } from 'jsonpath-plus';
 
 export class TasksApi extends Api {
   constructor (baseUrl: string, private projectId:string) {
