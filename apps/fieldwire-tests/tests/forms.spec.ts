@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { FormsPage } from '@fieldwire/page-objects';
-import { ProjectApi } from '@fieldwire/api';
+import { DailyStatusForm, FormsPage } from '@fieldwire/page-objects';
 import { shortUUID, UrlData, urlData } from '@fieldwire/helpers';
+import {format} from 'date-fns';
 
 test.describe('Forms tests', () => {
   let testData: UrlData | undefined = undefined;
@@ -11,22 +11,38 @@ test.describe('Forms tests', () => {
     await formsPage.goto();
   });
 
-  test('should submit an existing  form successfully', async ({
+  test('should submit a new daily report form', async ({
     page,
   }, testInfo) => {
     // create FormsPage page object instance
+    const formName = 'Daily Report'
+
     const formsPage = new FormsPage(page,(testData as UrlData).projectId)
+    const dailyStatusForm = new DailyStatusForm(page)
+    // click on "Daily report in template list"
+    await formsPage.locators.templateWithName(formName).click();
 
-    // click on "New Form"
-    await formsPage.newFormButtonLoc.click();
+    // click on "New Form";
+    await formsPage.locators.newFormButton().click();
 
-    // click fill "Enter form name" name
-    await formsPage.editFormNameLoc.click()
-    await formsPage.editFormNameLoc.click(`Daily report ${shortUUID()}`) // todo : datetime would be better, UUID ensures uniqueness for testing
+    // click on the textbox in the modal window
+    await formsPage.locators.editFormName().click()
+
+    // fill new report name
+    const formattedDate = format(new Date(), 'yyyy-MM-dd:HH:mm:ss')
+    await formsPage.locators.editFormName().fill(`${formName} ${formattedDate}`)
 
     // click on "Create form"
-    await formsPage.createFormButtonLoc.click()
+    await formsPage.locators.createFormButton().click()
 
-    // expect new form to be created
+
+    // expect to be on the projects/<projectId>/forms/<formId> page
+    const formsPageUrl = /projects\/.*\/forms\/.*/
+    await expect(page).toHaveURL(formsPageUrl)
+    // close the form
+    await dailyStatusForm.locators.close().click()
+
+    // expect to be back on projects/<projectId>/forms/templates/<templateId> page
+    const templatesPageUrl = /projects\/.*\/forms\/templates\/.*/
   });
 });

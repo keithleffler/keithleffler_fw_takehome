@@ -16,7 +16,7 @@ export class TaskEditor {
   get closeEditorLocator() {return this.page.getByRole('dialog').getByText('×')}
 
   // locators for task attribute locators
-  get attributesLocator() {return {
+  locators =  {
     status:() => this.page.getByRole('heading',{"name":'Status'}),
     category:() => this.page.getByRole('heading',{"name":'Category'}),
     assignee:() => this.page.getByRole('heading',{"name":'Assignee'}),
@@ -28,5 +28,5 @@ export class TaskEditor {
     cost:()=> this.page.getByRole('heading',{"name":'Cost'}),
     tags:() => this.page.getByRole('heading',{"name":'Tags'}),
     watchers:() => this.page.getByRole('heading',{"name":'Watchers'}),
-  }}
+  }
 }

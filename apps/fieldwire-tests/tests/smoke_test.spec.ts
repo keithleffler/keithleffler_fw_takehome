@@ -33,7 +33,7 @@ test.describe('Responsive smoke test', () => {
       await projectsPage.goto();
 
       // Confirm the New Project button is visible,
-      await expect(projectsPage.newProjectButton).toBeVisible();
+      await expect(projectsPage.locators.newProjectButton()).toBeVisible();
     });
   }
 });

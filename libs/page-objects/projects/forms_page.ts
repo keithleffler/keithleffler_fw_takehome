@@ -6,18 +6,22 @@ export class FormsPage {
     private projectId: string,
   ) {}
 
-  goto = async () => {
-    const url = `/projects/${this.projectId}/forms`;
-    await this.page.goto(url);
-  };
-  get createFormButtonLoc() {
-    return this.page.getByRole('button', { name: 'Create form' });
-  }
-  get editFormNameLoc() {
-    return this.page.getByRole('textbox', { name: 'Enter form name' });
+  get url() {
+    return `/projects/${this.projectId}/forms`;
   }
 
-  get newFormButtonLoc() {
-    return this.page.getByRole('button', { name: 'New form' });
-  }
+  goto = async () => {
+    await this.page.goto(this.url);
+  };
+
+  locators = {
+    createFormButton: () =>
+      this.page.getByRole('button', { name: 'Create form' }),
+    editFormName: () =>
+      this.page.getByRole('textbox', { name: 'Enter form name' }),
+    formsDropdownItem: (name: string) =>
+      this.page.getByRole('listitem', { name: name }).locator('a'),
+    newFormButton: () => this.page.getByRole('button', { name: 'New form' }),
+    templateWithName: (name: string) => this.page.getByText(name),
+  };
 }
