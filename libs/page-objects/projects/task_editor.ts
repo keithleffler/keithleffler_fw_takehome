@@ -32,6 +32,7 @@ export class TaskEditor {
     tags:() => this.page.getByRole('heading',{"name":'Tags'}),
     watchers:() => this.page.getByRole('heading',{"name":'Watchers'}),
     submitButton:() => this.page.getByRole('button', { name: 'Submit' }),
-    textBox:() => this.page.getByRole('textbox', { name: '-' })
+    textBox:() => this.page.locator('input[name="default"]'),
+    divWithText:(text:RegExp,n:number) => this.page.locator('div').filter({ hasText: text }).nth(n)
   }
 }

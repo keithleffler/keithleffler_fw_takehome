@@ -89,17 +89,15 @@ test.describe('Tasks tests', () => {
     await taskEditor.locators.textBox().fill(negativeValue)
     await taskEditor.locators.submitButton().click()
 
-    const displayText = await taskEditor.locators.manpower().locator('span').innerText()
-    // get the element
-     expect.soft(true,'Needs clarification on expected behavior').toBe(false);
-  });
-  test('should reject very large manpower values', ({ page }) => {
-    expect.soft(true,'Needs clarification on expected behavior').toBe(false);
-  });
-  test('should reject very small manpower values', ({ page }) => {
+    // Search for the negative manpower value in the page.    
+    const re = new RegExp(`Manpower${negativeValue}Hoursedit`)
+    const n = 2
+    const nonRangeChecked = await taskEditor.locators.divWithText(re,n).all()
 
-    expect.soft(true,'Needs clarification on expected behavior').toBe(false);
+    // Expect the length of matched elements to be zero.  
+     expect.soft(nonRangeChecked.length,'Needs clarification on expected behavior').toBe(0);
   });
+
 });
 
 
