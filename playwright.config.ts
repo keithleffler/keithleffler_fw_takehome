@@ -17,7 +17,7 @@ export default defineConfig({
     video: 'retain-on-failure'
   },
   projects: [
-    { name: 'setup', testMatch: '**/setup/*setup.ts' },
+    { name: 'setup', testMatch: '**/*setup.ts' },
     {
       name: 'chromium',
       use: {
@@ -26,13 +26,13 @@ export default defineConfig({
       },
       dependencies:['setup']
     },
-    {
-      name: 'Tablet (iPad)',
-      use: {
-        ...devices['iPad Pro 11'],
-        storageState: 'playwright/.auth/user.json',
-      },
-      dependencies:['setup']
-    }
+    // {
+    //   name: 'Tablet (iPad)',
+    //   use: {
+    //     ...devices['iPad Pro 11'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    //   dependencies:['setup']
+    // }
   ]
 });
