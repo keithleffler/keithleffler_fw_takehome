@@ -40,7 +40,7 @@ export class TaskEditorPO {
     taskName:()=>this.page.locator('textarea[name="taskName"]'),
     watchers:() => this.page.getByRole('heading',{"name":'Watchers'}),
 
-    divWithText:(text:RegExp,n:number) => this.page.locator('div').filter({ hasText: text }).nth(n),
+    attributeWithValue:(text:RegExp, n = 2) => this.page.locator('div').filter({ hasText: text }).nth(n),
     textBox:() => this.page.locator('input[name="default"]')
 
 

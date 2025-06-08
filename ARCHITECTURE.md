@@ -36,6 +36,15 @@ Playwright's global setup capability is used to cache authentication for the tes
 
 This file is referenced in `playwright.config.ts` via the `globalSetup` option, and the `storageState` path is shared through configuration.
 
+The JWT tokens for the application are valid for 8 hours. The tests 
+could be further sped up by:
+* auth.setup.ts attempts to load playwright/.auth/user.json
+* if the file is located, decode the JWT token and retrieve the expiration 
+  date / time.
+* Log in via the UI if no file is found or if the existing token has 
+  expired or nearly expired 
+* Otherwise, use the existing token
+
 ## Bruno Collection
 
 The `bruno/` folder contains a structured collection of API requests used to explore and validate backend behavior. Bruno is used during test development to:

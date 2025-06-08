@@ -111,8 +111,7 @@ test.describe('Tasks tests', () => {
 
     // Search for the negative manpower value in the page.    
     const re = new RegExp(`Manpower${negativeValue}Hoursedit`)
-    const n = 2
-    const nonRangeChecked = await taskEditor.locators.divWithText(re,n).all()
+    const nonRangeChecked = await taskEditor.locators.attributeWithValue(re).all()
 
     // Expect the length of matched elements to be zero.  
      expect.soft(nonRangeChecked.length,'Needs clarification on expected behavior').toBe(0);

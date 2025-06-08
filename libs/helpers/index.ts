@@ -1,3 +1,3 @@
 export * from './shortUUID'
 export * from './uniqueElements'
-export * from './urlData'
+export * from './getProjectId'
