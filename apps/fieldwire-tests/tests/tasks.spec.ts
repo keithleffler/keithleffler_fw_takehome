@@ -9,7 +9,6 @@ test.describe('Tasks tests', () => {
 
   let projectId = ""
   let baseUrl = ""
-  let existingTasks:string[] = []
   test.beforeEach( async ({ page },testInfo) => {
 
     // get baseUrl from project data

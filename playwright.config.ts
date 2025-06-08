@@ -2,10 +2,11 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
+// TODO: use and environment variable to determine if  running in CI.  Adjust timeouts and headless mode if so.
 
 export default defineConfig({
   testDir: './apps/fieldwire-tests/tests',
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   expect: {
     timeout: 5000
   },
