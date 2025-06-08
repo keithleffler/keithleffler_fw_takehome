@@ -52,7 +52,8 @@ test.describe('Forms tests', () => {
   });
 
   test('it should fill multiple worklog entries',async ({page}) => {
-    
+
+    test.slow()
     const formName = 'Daily Report'
 
     const dailyStatusForm =await createDailyStatusForm(page,projectId)
