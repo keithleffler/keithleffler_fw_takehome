@@ -15,5 +15,4 @@ test.describe('Projects API tests', () => {
     const project = await api.getByName(projectName)
     expect(project).toBeDefined()
   })
-
 })

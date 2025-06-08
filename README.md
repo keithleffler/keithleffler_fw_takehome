@@ -86,8 +86,31 @@ The following npm scripts are defined to support testing and linting workflows:
 | `npm run lint:api`          | Lints reusable API client code under `libs/api/`              |
 | `npm run lint:helpers`      | Lints utility functions under `libs/helpers/`                 |
 | `npm run lint:page-objects` | Lints Page Object Model classes in `libs/page-objects/`    |
-| `npm run lint:all`   
+| `npm run lint:all`          | Lints all the projects |
 
+
+## Bruno collection
+
+I created a small Bruno collection to experiment with the API.  To use it:
+
+1. Install Bruno (https://www.usebruno.com)
+2. Import the collection from /keithleffler-fw-takehome/bruno
+3. Get the current accessToken
+   4. Search for the element with 
+         "name":"accessToken" in user.json
+   5. Copy the token in the "value":<token> of the record (next line).  This 
+      assumes an un-expired token.  Run some tests in Playwright to ensure a 
+      valid token
+   6. Paste the token into the "token" variable in the Bruno enviorment.
+   7. Save the environment
+   8. Run the request:
+
+![Bruno Project](docs/bruno-project.jpg)
+
+![Bruno environment settings](docs/Bruno_env_settings.jpg)
+
+![Bruno project data](docs/Bruno_project_data.jpg)
+   
 ## Design Notes
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for additional details, including CI limitations, design tradeoffs, and commentary on future improvements.

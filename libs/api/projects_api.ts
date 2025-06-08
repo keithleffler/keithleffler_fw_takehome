@@ -4,9 +4,17 @@ import { JSONPath } from 'jsonpath-plus';
 export class ProjectApi extends Api {
 
   /*
-    This class is a wrapper for the projects API.
+    The ProjectApi class is a wrapper for the /api/v3/projects endpoint.
+
+    This class helps allow direct access to a project, without using the
+    UI to click on a project button.
+
+    A test for creating a project could verfy the project data.  Once verified,
+    the project data could be used as expected values for UI tests:
+      1.  Was the expected data returned?
+      2.  Does the UI handle the verified data correctly?
+
    */
-  // TODO - get a schema defintion for a projects record, to avoid the errors with assigning to any.
 
   getProjects = async ():Promise<any> => {
     const token = this.accessToken;

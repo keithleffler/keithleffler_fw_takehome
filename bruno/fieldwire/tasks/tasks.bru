@@ -1,0 +1,15 @@
+meta {
+  name: tasks
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url}}/{{api_root}}/projects/{{projectId}}/tasks?page=2
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 2
+}

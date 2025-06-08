@@ -9,7 +9,7 @@ test.describe('Tasks tests', () => {
 
   let projectId = ""
   let baseUrl = ""
-  const newTasks:string[] = []
+  let existingTasks:string[] = []
   test.beforeEach( async ({ page },testInfo) => {
 
     // get baseUrl from project data
@@ -22,6 +22,8 @@ test.describe('Tasks tests', () => {
     const projectApi = new ProjectApi(baseUrl);  //TODO: error handling if baseURL is not set
     projectId = await projectApi.getByName(projectName) as string;
 
+    // TODO:  get a list of tasks in the project.
+
     // Create a new TaskPage page object.
     const taskPage = new TaskPO(page,baseUrl, projectId)
 
@@ -29,14 +31,26 @@ test.describe('Tasks tests', () => {
     await taskPage.goto();
   })
   test.afterEach( async () => {
-    // Create a new Tasks api instance
-    const tasksApi = new TasksApi(baseUrl, projectId);
+    /*
+      Tests should clean up data created during testing. This method isn't working as expected.
+      DELETE /task seems to mark tasks as deleted, but doesn't remove them.  More work
+      needed here to clean up tasks created during testing.
 
-    // create a delete request for each new task created in the project
-    const requests = newTasks.map(taskId => tasksApi.deleteTask(taskId))
+      // Create a list of tasks created during this test, so they can be deleted.
 
-    // await all delete requests to resolve
-    await Promise.all(requests)
+      // TODO:  The findUniqueElements isn't returning what I expect.  Fix it to return the IDs of tasks created in this test
+      // const _newTasks = findUniqueElements<string>(existingTasks,currentTasks)
+      // _newTasks.forEach(task => newTasks.push(task))
+    */
+
+    // // Create a new Tasks api instance
+    // const tasksApi = new TasksApi(baseUrl, projectId);
+    //
+    // // create a delete request for each new task created in the project
+    // const requests = newTasks.map(taskId => tasksApi.deleteTask(taskId))
+    //
+    // // await all delete requests to resolve
+    // await Promise.all(requests)
 
   })
   test('should create a new task',  async ({ page }) => {
@@ -59,14 +73,23 @@ test.describe('Tasks tests', () => {
     // Expect that there's an additional task in the project now.
     expect(currentTasks.length).toBe(existingTasks.length + 1);
 
-    // TODO:  The findUniqueElements isn't returning what I expect.  Fix it to return the IDs of tasks created in this test
-    // const _newTasks = findUniqueElements<string>(existingTasks,currentTasks)
-    // _newTasks.forEach(task => newTasks.push(task))
-
   });
 
 
   test.fail('should reject negative manpower values', async ({ page }) => {
+
+    /*
+     Verify that the manpower field rejects negative values
+
+      This test is currently failing, but I want the test run to pass if there
+      are no other errors.
+
+      Manpower and cost attributes of a task do
+      not appear to have range checking. The fields accept negative values, and
+      very small and very large values.  Values that don't fit in the text box are
+      displayed in scientific format:  ie 1e+100.  I would check project specs and product
+      owner to know if this is by design or was overlooked, then file a defect if necessary.
+     */
 
     // Get a list of existing tasks
     const taskPage = new TaskPO(page, baseUrl,projectId)

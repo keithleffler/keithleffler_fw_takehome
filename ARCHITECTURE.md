@@ -55,7 +55,6 @@ The `.github/workflows/ci.yml` file runs all end-to-end tests on push and pull r
 - Execution of Playwright tests in headless Chromium
 - Upload of test artifacts (e.g., failure screenshots)
 
-Note: Full CI execution is not currently functional due to unresolved issues with storing and accessing the authorization state required for login. This would typically involve securely caching session tokens or login state between jobs, but limitations with GitHub Actions secrets and storage paths prevented a working implementation. Further refinement is needed to support complete CI automation.
 ## Environment Variables
 
 This project uses a `.env` file to store login credentials and project-specific configuration. It is loaded automatically using `dotenv`, and is excluded from version control.
