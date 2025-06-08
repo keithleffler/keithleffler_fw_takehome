@@ -24,7 +24,7 @@ export class TasksApi extends Api {
     const token = this.accessToken;
     let page = 0
     let tasks:unknown[] = []
-    const url = `${this.baseUrl}/${this.apiRoot}/projects/${this.projectId}/tasks`;
+    const url = `${this.baseUrl}${this.apiRoot}/projects/${this.projectId}/tasks`;
     let xCurrentPage = 0
     let xTotalPages = 1
     try {
@@ -32,7 +32,9 @@ export class TasksApi extends Api {
         const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${token}`,
-            page: (++page).toString(10)
+          },
+          params: {
+            page: ++page
           }
         });
         xTotalPages = response.headers['x-total-pages']

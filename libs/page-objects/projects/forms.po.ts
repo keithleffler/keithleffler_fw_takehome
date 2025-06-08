@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
 
-export class FormsPage {
+export class FormsPO {
   constructor(
     private page: Page,
     private projectId: string,

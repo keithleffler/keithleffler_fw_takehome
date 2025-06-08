@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { DailyStatusForm, FormsPage } from '@fieldwire/page-objects';
+import { DailyStatusFormPO, FormsPO } from '@fieldwire/page-objects';
 import { UrlData, urlData } from '@fieldwire/helpers';
 import {format} from 'date-fns';
 
@@ -7,7 +7,7 @@ test.describe('Forms tests', () => {
   let testData: UrlData | undefined = undefined;
   test.beforeEach(async ({ page }, testInfo) => {
     testData = await urlData(testInfo);
-    const formsPage = new FormsPage(page, testData.projectId);
+    const formsPage = new FormsPO(page, testData.projectId);
     await formsPage.goto();
   });
 
@@ -17,8 +17,8 @@ test.describe('Forms tests', () => {
     // create FormsPage page object instance
     const formName = 'Daily Report'
 
-    const formsPage = new FormsPage(page,(testData as UrlData).projectId)
-    const dailyStatusForm = new DailyStatusForm(page)
+    const formsPage = new FormsPO(page,(testData as UrlData).projectId)
+    const dailyStatusForm = new DailyStatusFormPO(page)
     // click on "Daily report in template list"
     await formsPage.locators.templateWithName(formName).click();
 

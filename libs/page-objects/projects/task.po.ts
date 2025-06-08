@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
-import { TaskEditor } from './task_editor';
+import { TaskEditorPO } from './task_editor.po';
 
-export class TaskPage {
+export class TaskPO {
   private newTaskName = 'Enter title'
   constructor(private page: Page, private baseUrl:string,private projectId:string) {
   }
@@ -11,9 +11,11 @@ export class TaskPage {
     await this.goto()
     await this.locators.newTaskButton().click();
     await this.page.waitForURL(`**/projects/${this.projectId}/tasks/*`)
-    const taskEditor = new TaskEditor(this.page,this.baseUrl,this.projectId);
+
+    const taskEditor = new TaskEditorPO(this.page,this.baseUrl,this.projectId);
     await taskEditor.updateTitle(this.newTaskName,name)
-    await taskEditor.closeEditorLocator.click();
+    await taskEditor.locators.closeEditor().click();
+
   }
 
   goto = async () => {
