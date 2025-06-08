@@ -54,6 +54,6 @@ test-results/
 # Other stuff
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
-.junie/
 /zipexclude.lst
 /zip_takehome.sh
+/keithleffler_fw_takehome.zip
