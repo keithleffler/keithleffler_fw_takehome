@@ -38,11 +38,11 @@ npm run e2e
 
 ## Run Unit Tests
 
-
 ```bash
 npm run test:libs:unit
 ```
 The libraries under ./libs are designed to be independent of the test runner and UI framework logic. This separation makes them suitable for unit testing with mocking and dependency injection. While the current implementation includes only placeholder unit tests due to time constraints, the structure supports isolated testing of API helpers, utilities, and page logic in future iterations.
+
 ## Lint
 
 ```bash
@@ -110,7 +110,7 @@ I created a small Bruno collection to experiment with the API.  To use it:
 ![Bruno environment settings](docs/Bruno_env_settings.jpg)
 
 ![Bruno project data](docs/Bruno_project_data.jpg)
-   
+
 ## Design Notes
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for additional details, including CI limitations, design tradeoffs, and commentary on future improvements.
