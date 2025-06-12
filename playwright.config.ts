@@ -17,7 +17,7 @@ export default defineConfig({
     video: 'retain-on-failure'
   },
   projects: [
-    { name: 'setup', testMatch: '**/setup/*setup.ts' },
+    { name: 'setup', testMatch: '**/*setup.ts' },
     {
       name: 'chromium',
       use: {
