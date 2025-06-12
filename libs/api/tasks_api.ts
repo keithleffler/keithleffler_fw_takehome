@@ -22,14 +22,24 @@ export class TasksApi extends Api {
 
   getTasks = async ():Promise<unknown[]> => {
     const token = this.accessToken;
+    let page = 0
+    const url = `${this.baseUrl}/${this.apiRoot}/projects/${this.projectId}/tasks`;
+    let tasks:unknown[] = []
+    let xCurrentPage = 0
+    let xTotalPages = 1
     try {
-      const url = `${this.baseUrl}/${this.apiRoot}/projects/${this.projectId}/tasks`;
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      return response.data as unknown[];
+      while (xCurrentPage < xTotalPages) {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            page: (++page).toString(10)
+          }
+        });
+        xTotalPages = response.headers['x-total-pages']
+        xCurrentPage = response.headers['x-current-page']
+        tasks = [...tasks, ...response.data]
+      }
+      return tasks
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error
