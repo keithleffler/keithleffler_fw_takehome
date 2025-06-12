@@ -30,7 +30,9 @@ export class TasksApi extends Api {
       while (page <= xTotalPages) {
         const response = await axios.get(url, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`
+          },
+          params: {
             page: (page++).toString(10)
           }
         });

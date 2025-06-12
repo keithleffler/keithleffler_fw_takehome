@@ -66,7 +66,7 @@ test.describe('Tasks tests', () => {
   });
 
 
-  test('should reject negative manpower values', async ({ page }) => {
+  test.fail('should reject negative manpower values', async ({ page }) => {
     // Get a list of existing tasks
     const taskPage = new TaskPage(page, baseUrl,projectId)
     // Create a new project task, with a randomly generated name

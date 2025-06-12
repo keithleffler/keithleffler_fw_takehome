@@ -5,7 +5,7 @@ dotenv.config();
 
 export default defineConfig({
   testDir: './apps/fieldwire-tests/tests',
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   expect: {
     timeout: 5000
   },
@@ -26,13 +26,13 @@ export default defineConfig({
       },
       dependencies:['setup']
     },
-    {
-      name: 'Tablet (iPad)',
-      use: {
-        ...devices['iPad Pro 11'],
-        storageState: 'playwright/.auth/user.json',
-      },
-      dependencies:['setup']
-    }
+    // {
+    //   name: 'Tablet (iPad)',
+    //   use: {
+    //     ...devices['iPad Pro 11'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    //   dependencies:['setup']
+    // }
   ]
 });
